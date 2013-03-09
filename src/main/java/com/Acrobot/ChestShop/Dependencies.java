@@ -9,6 +9,8 @@ import com.Acrobot.ChestShop.Economy.Vault;
 import com.Acrobot.ChestShop.Plugins.*;
 import com.nijikokun.register.payment.forChestShop.Method;
 import com.nijikokun.register.payment.forChestShop.Methods;
+import com.octagami.claimit.ClaimItPlugin;
+import com.octagami.claimit.exception.PluginNotLoadedException;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -131,6 +133,20 @@ public class Dependencies {
             case OddItem:
                 MaterialUtil.Odd.initialize();
                 break;
+            case ClaimIt:
+            	
+				ClaimItPlugin claimIt = null;
+				try {
+					claimIt = com.octagami.claimit.ClaimIt.getPlugin();
+				} catch (PluginNotLoadedException e) {
+				}
+
+                if (claimIt == null) {
+                    return;
+                }
+
+                listener = new ClaimIt();
+                break;
         }
 
         if (listener != null) {
@@ -154,6 +170,8 @@ public class Dependencies {
         WorldGuard,
 
         Vault,
-        Heroes
+        Heroes,
+        
+        ClaimIt
     }
 }
