@@ -4,6 +4,7 @@ import com.Acrobot.ChestShop.Configuration.Messages;
 import com.Acrobot.ChestShop.Configuration.Properties;
 import com.Acrobot.ChestShop.Events.Protection.ProtectBlockEvent;
 import com.Acrobot.ChestShop.Events.Protection.ProtectionCheckEvent;
+import com.Acrobot.ChestShop.Events.EmptyShopRemovedEvent;
 import com.Acrobot.ChestShop.Events.ShopCreatedEvent;
 import com.Acrobot.ChestShop.Security;
 import com.griefcraft.lwc.LWC;
@@ -31,7 +32,7 @@ public class LightweightChestProtection implements Listener {
     }
 
     @EventHandler
-    public static void onShopCreation(ShopCreatedEvent event) {
+    public void onShopCreation(ShopCreatedEvent event) {
         Player player = event.getPlayer();
         Sign sign = event.getSign();
         Chest connectedChest = event.getChest();
@@ -41,10 +42,44 @@ public class LightweightChestProtection implements Listener {
                 player.sendMessage(Messages.prefix(Messages.NOT_ENOUGH_PROTECTIONS));
             }
         }
+//        else {
+//			Protection signProtection = lwc.findProtection(sign.getBlock());
+//			if (signProtection != null) {
+//				signProtection.remove();
+//			}
+//        }
 
-        if (Properties.PROTECT_CHEST_WITH_LWC && connectedChest != null && Security.protect(player.getName(), connectedChest.getBlock())) {
-            player.sendMessage(Messages.prefix(Messages.PROTECTED_SHOP));
+        if (Properties.PROTECT_CHEST_WITH_LWC) {
+        	if (connectedChest != null && Security.protect(player.getName(), connectedChest.getBlock())) {
+        		 player.sendMessage(Messages.prefix(Messages.PROTECTED_SHOP));
+        	}
         }
+//        else if (connectedChest != null){
+//			Protection chestProtection = lwc.findProtection(connectedChest.getBlock());
+//			if (chestProtection != null) {
+//				chestProtection.remove();
+//			}
+//        }
+    }
+    
+    @EventHandler
+    public void onEmptyShopRemoved(EmptyShopRemovedEvent event) {
+      
+		  Block sign = event.getSign().getBlock();
+		  
+		  Protection signProtection = lwc.findProtection(sign);
+		
+		  if (signProtection != null) {
+			  signProtection.remove();
+		  }
+      
+    	  Block chest = event.getChest().getBlock();
+         
+          Protection chestProtection = lwc.findProtection(chest);
+
+          if (chestProtection != null) {
+        	  chestProtection.remove();
+          }
     }
 
     @EventHandler
@@ -74,7 +109,7 @@ public class LightweightChestProtection implements Listener {
         }
 
         Block block = event.getBlock();
-        Player player = Bukkit.getPlayerExact(event.getName());
+        Player player = Bukkit.getPlayer(event.getName());
 
         if (player == null || limitsModule.hasReachedLimit(player, block.getType())) {
             return;
