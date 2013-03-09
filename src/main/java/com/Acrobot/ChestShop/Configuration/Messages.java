@@ -38,6 +38,9 @@ public class Messages {
 
     public static String NOT_ENOUGH_STOCK = "This shop is out of stock.";
     public static String NOT_ENOUGH_STOCK_IN_YOUR_SHOP = "Your %material shop is out of stock!";
+    
+    public static String SHOP_EMPTY = "This shop is now empty or depleted";
+    public static String YOUR_SHOP_EMPTY = "Your %material shop is now empty or depleted";
 
     public static byte NEWLINE_ENOUGH_STOCK_IN_YOUR_SHOP; ///////////////////////////////////////////////////
 
