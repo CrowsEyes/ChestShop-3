@@ -23,6 +23,9 @@ public class Properties {
     @ConfigurationComment("If true, people will be able to sell/buy everything available of the same type.")
     public static boolean SHIFT_SELLS_EVERYTHING = false;
 
+    @ConfigurationComment("What can you do by clicking shift with SHIFT_SELLS_EVERYTHING turned on? (ALL/BUY/SELL)")
+    public static String SHIFT_ALLOWS = "ALL";
+
     @ConfigurationComment("Can shop's chest be opened by owner with right-clicking a shop's sign?")
     public static boolean ALLOW_SIGN_CHEST_OPEN = true;
 
@@ -152,10 +155,4 @@ public class Properties {
 
     @ConfigurationComment("How much Heroes exp should people get for creating a ChestShop?")
     public static double HEROES_EXP = 100;
-
-    public static byte NEWLINE_HEROES_EXP; ///////////////////////////////////////////////////
-
-    @ConfigurationComment("Do you want to turn off the CraftBukkit teleportation bugfix, which closes the inventory screen on teleport? " +
-            "(If you're using xAuth, you might want to turn it on) - only applies to CraftBukkit versions lower than 1.4.7-R1.1")
-    public static boolean TURN_OFF_CRAFTBUKKIT_TELEPORTATION_BUGFIX = false;
 }

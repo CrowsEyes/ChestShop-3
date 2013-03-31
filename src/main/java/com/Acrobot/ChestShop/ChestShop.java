@@ -12,6 +12,7 @@ import com.Acrobot.ChestShop.Listeners.Block.BlockPlace;
 import com.Acrobot.ChestShop.Listeners.Block.Break.ChestBreak;
 import com.Acrobot.ChestShop.Listeners.Block.Break.SignBreak;
 import com.Acrobot.ChestShop.Listeners.Block.SignCreate;
+import com.Acrobot.ChestShop.Listeners.Item.ItemMoveListener;
 import com.Acrobot.ChestShop.Listeners.ItemInfoListener;
 import com.Acrobot.ChestShop.Listeners.Player.PlayerConnect;
 import com.Acrobot.ChestShop.Listeners.Player.PlayerInteract;
@@ -26,7 +27,6 @@ import com.Acrobot.ChestShop.Listeners.PreTransaction.*;
 import com.Acrobot.ChestShop.Listeners.PreTransaction.ErrorMessageSender;
 import com.Acrobot.ChestShop.Listeners.PreTransaction.PermissionChecker;
 import com.Acrobot.ChestShop.Listeners.ShopRefundListener;
-import com.Acrobot.ChestShop.Listeners.TeleportFixListener;
 import com.Acrobot.ChestShop.Logging.FileFormatter;
 import com.Acrobot.ChestShop.Metadata.ItemDatabase;
 import com.Acrobot.ChestShop.Signs.RestrictedSign;
@@ -171,6 +171,7 @@ public class ChestShop extends JavaPlugin {
         registerEvent(new ChestBreak());
 
         registerEvent(new BlockPlace());
+        registerEvent(new ItemMoveListener());
         registerEvent(new PlayerConnect());
         registerEvent(new PlayerInteract());
         registerEvent(new PlayerInventory());
@@ -181,10 +182,6 @@ public class ChestShop extends JavaPlugin {
         registerEvent(new ShopRefundListener());
 
         registerEvent(new ShortNameSaver());
-
-        if (!Properties.TURN_OFF_CRAFTBUKKIT_TELEPORTATION_BUGFIX) {
-            registerEvent(new TeleportFixListener());
-        }
     }
 
     private void registerPreShopCreationEvents() {
@@ -252,6 +249,8 @@ public class ChestShop extends JavaPlugin {
 
     /////////////////////   DATABASE    STUFF      ////////////////////////////////
     private void setupDB() {
+        loadFile(new File("ebean.properties"));
+
         Database DB;
 
         DB = new Database(this) {
