@@ -3,6 +3,7 @@ package com.Acrobot.ChestShop;
 import com.Acrobot.Breeze.Configuration.Configuration;
 import com.Acrobot.ChestShop.Commands.ItemInfo;
 import com.Acrobot.ChestShop.Commands.Version;
+import com.Acrobot.ChestShop.Commands.cstoggle;
 import com.Acrobot.ChestShop.Configuration.Messages;
 import com.Acrobot.ChestShop.Configuration.Properties;
 import com.Acrobot.ChestShop.DB.Generator;
@@ -113,6 +114,7 @@ public class ChestShop extends JavaPlugin {
 
         getCommand("iteminfo").setExecutor(new ItemInfo());
         getCommand("csVersion").setExecutor(new Version());
+        getCommand("cstoggle").setExecutor(new cstoggle());
 
         startStatistics();
     }

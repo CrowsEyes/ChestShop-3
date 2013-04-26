@@ -2,6 +2,7 @@ package com.Acrobot.ChestShop.Listeners.PostTransaction;
 
 import com.Acrobot.Breeze.Utils.InventoryUtil;
 import com.Acrobot.Breeze.Utils.MaterialUtil;
+import com.Acrobot.ChestShop.Commands.cstoggle;
 import com.Acrobot.ChestShop.Configuration.Messages;
 import com.Acrobot.ChestShop.Configuration.Properties;
 import com.Acrobot.ChestShop.Economy.Economy;
@@ -20,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class TransactionMessageSender implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
+    
     public static void onTransaction(TransactionEvent event) {
         if (event.getTransactionType() == TransactionEvent.TransactionType.BUY) {
             sendBuyMessage(event);
@@ -36,14 +38,14 @@ public class TransactionMessageSender implements Listener {
 
         String price = Economy.formatBalance(event.getPrice());
 
-        if (Properties.SHOW_TRANSACTION_INFORMATION_CLIENT) {
+        if (Properties.SHOW_TRANSACTION_INFORMATION_CLIENT & cstoggle.CSCheck(player)) {
             String message = formatMessage(Messages.YOU_BOUGHT_FROM_SHOP, itemName, price);
             message = message.replace("%owner", owner);
 
             player.sendMessage(message);
         }
 
-        if (Properties.SHOW_TRANSACTION_INFORMATION_OWNER) {
+        if (Properties.SHOW_TRANSACTION_INFORMATION_OWNER & cstoggle.CSCheck(player)) {
             String message = formatMessage(Messages.SOMEBODY_BOUGHT_FROM_YOUR_SHOP, itemName, price);
             message = message.replace("%buyer", player.getName());
 
@@ -59,14 +61,14 @@ public class TransactionMessageSender implements Listener {
 
         String price = Economy.formatBalance(event.getPrice());
 
-        if (Properties.SHOW_TRANSACTION_INFORMATION_CLIENT) {
+        if (Properties.SHOW_TRANSACTION_INFORMATION_CLIENT & cstoggle.CSCheck(player)) {
             String message = formatMessage(Messages.YOU_SOLD_TO_SHOP, itemName, price);
             message = message.replace("%buyer", owner);
 
             player.sendMessage(message);
         }
 
-        if (Properties.SHOW_TRANSACTION_INFORMATION_OWNER) {
+        if (Properties.SHOW_TRANSACTION_INFORMATION_OWNER & cstoggle.CSCheck(player)) {
             String message = formatMessage(Messages.SOMEBODY_SOLD_TO_YOUR_SHOP, itemName, price);
             message = message.replace("%seller", player.getName());
 

@@ -9,8 +9,7 @@ dev-url: http://dev.bukkit.org/server-mods/chestshop/
 
 
 author: Acrobot
-description: >
-             A chest shop for economy plugins.
+description: A chest shop for economy plugins.
  
  
 softdepend: [LWC, Lockette, Deadbolt, OddItem, Towny, WorldGuard, Vault, Heroes,
@@ -27,6 +26,11 @@ commands:
   csVersion:
     aliases: [chestshop]
     description: Shows the ChestShop's version
+    usage: /<command>
+
+  cstoggle:
+    aliases: [cs]
+    description: Toggles ChestShop messages
     usage: /<command>
 
 permissions:
